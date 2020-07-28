@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
@@ -23,10 +21,19 @@ public class MarathonController {
         return "marathons";
     }
 
-    @GetMapping("/marathons/edit")
-    public String edit(Model model) {
+    @GetMapping("/marathons/edit/{id}")
+    public String edit(@PathVariable(name = "id") Long id, Model model) {
+        Marathon marathon = marathonService.getMarathonById(id);
+        model.addAttribute("marathon", marathon);
         return "editMarathon";
     }
+
+    @PostMapping("/marathons/edit")
+    public String edit(@ModelAttribute(name = "marathon") Marathon marathon) {
+        marathonService.createOrUpdate(marathon);
+        return "redirect:/marathons";
+    }
+
 
     @GetMapping("/marathons/create")
     public String create(Model model) {
@@ -35,8 +42,16 @@ public class MarathonController {
     }
 
     @PostMapping("/marathons/create")
-    public String addMarathon(@ModelAttribute(name="marathon") Marathon marathon) {
+    public String create(Marathon marathon) {
         marathonService.createOrUpdate(marathon);
         return "redirect:/marathons";
+    }
+
+
+    @GetMapping("/marathons/delete/{id}")
+    public String delete(@PathVariable(name = "id") Long id, Model model) {
+        marathonService.deleteMarathonById(id);
+        return "redirect:/marathons";
+
     }
 }

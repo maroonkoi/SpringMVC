@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Edit marathon</title>
 </head>
 <body>
 <h1> Edit marathon</h1>
+<!--<p th:text="${marathon}">placeholder</p>-->
+
+<form th:action="@{/marathons/edit}" th:object="${marathon}" method="post">
+
+    <p>Enter new marathon title: <input type="text" th:field="*{title}"/></p>
+    <input type="hidden" th:field="*{id}" th:default="${marathon.getId()}"/></p>
+    <p><input type="submit" value="Apply changes"/></p>
+
+</form>
 </body>
 </html>

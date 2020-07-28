@@ -19,14 +19,29 @@
     <div class="row">
         <table border="1">
             <tr th:each="marathon, index : ${marathons}">
-                <td th:utext="${index.count}"></td>
+                <td th:text="${index.count}"></td>
                 <td th:text="${marathon.title}"></td>
-                <td>Edit</td>
-                <td>Close</td>
+                <td>
+<!--                    <label for="relativeLink"></label>-->
+<!--                    <a id="relativeLink" th:href="@{/marathons/create}">-->
+<!--                        <input type="submit" value="Edit"/>-->
+<!--                    </a>-->
+                    <form action="/marathons/edit">
+                        <input type="submit" value="Edit marathon"/>
+                    </form>
+                </td>
+                <td>
+                    <form action="/marathons">
+                        <input type="submit" value="Close"/>
+                    </form>
+                </td>
             </tr>
         </table>
     </div>
-
+    <br>
+    <form action="/marathons/create">
+        <input type="submit" value="Create marathon"/>
+    </form>
 </div>
 </body>
 </html>

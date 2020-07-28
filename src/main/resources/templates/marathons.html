@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Marathons</title>
+</head>
+<body>
+<h2>Marathons list</h2>
+<table>
+    <tr>
+        <td>
+            Number of marathons:
+        </td>
+        <td th:text="${marathons.size()}">
+        </td>
+    </tr>
+</table>
+<div class="container">
+    <div class="row">
+        <table border="1">
+            <tr th:each="marathon, index : ${marathons}">
+                <td th:utext="${index.count}"></td>
+                <td th:text="${marathon.title}"></td>
+                <td>Edit</td>
+                <td>Close</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,19 +31,27 @@ public class StudentController {
         return "students";
     }
 
-    @GetMapping("/students/{id}")
-    public String viewAllUsersByMarathon (@PathVariable String id, Model model){
-        Marathon marathon = marathonService.getMarathonById(Long.valueOf(id));
+    @GetMapping("/students_marathon/{id}")
+    public String viewAllUsersByMarathon (@PathVariable Long id, Model model){
+        Marathon marathon = marathonService.getMarathonById(id);
         Set<User> users = (Set<User>) getAllStudents((List<User>) marathon.getUsers());
-        model.addAttribute("students", users);
+        model.addAttribute("students", users).addAttribute("marathon", marathon);
         return "students";
+
     }
     @GetMapping("/students/{marathonId}/delete/{studentId}")
-    public String deleteStudent (@PathVariable Long marathonId, @PathVariable Long studentId, Model model ){
+    public String deleteStudent (@PathVariable Long marathonId, @PathVariable Long studentId){
         User user = userService.getUserById(studentId);
         Marathon marathon = marathonService.getMarathonById(marathonId);
         marathon.getUsers().remove(user);
-        return "redirect:/students/"+marathonId;
+        return "redirect:/students_marathon/"+marathonId;
+    }
+
+    @GetMapping("/student/{studentId}")
+    public String showStudent (@PathVariable Long studentId, Model model){
+        User user = userService.getUserById(studentId);
+        model.addAttribute("student", user);
+        return "student";
     }
 
 

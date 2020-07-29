@@ -67,9 +67,9 @@ public class StudentController {
     }
 
     @PostMapping("/students/{marathonId}/add")
-    public String addStudentToMarathon (@ModelAttribute(name="student") User user, @PathVariable("marathonId") Long marathonId) {
-        userService.addUserToMarathon(user, marathonService.getMarathonById(marathonId));
-        return "redirect:/students_marathon/"+marathonId;
+    public String addStudentToMarathon (@ModelAttribute(name="student") User user, @PathVariable("marathonId") Long id) {
+        userService.addUserToMarathon(user, marathonService.getMarathonById(id));
+        return "redirect:/students_marathon/"+id;
     }
 
 

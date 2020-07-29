@@ -52,6 +52,5 @@ public class MarathonController {
     public String delete(@PathVariable(name = "id") Long id, Model model) {
         marathonService.deleteMarathonById(id);
         return "redirect:/marathons";
-
     }
 }

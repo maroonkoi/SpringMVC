@@ -29,16 +29,20 @@ public class StudentController {
     }
 
     @GetMapping("/students/{id}")
-    public String viewAllUsersByMarathon (@PathVariable String id, Model model){
-        Marathon marathon = marathonService.getMarathonById(Long.valueOf(id));
+    public String viewAllUsersByMarathon (@PathVariable(name = "id") Long id, Model model){
+        Marathon marathon = marathonService.getMarathonById(id);
         Set<User> users = marathon.getUsers();
-        model.addAttribute("students", getAllStudents((List<User>) users));
-        return "students";
+        model.addAttribute("students", users);
+        return "marathonStudents";
     }
+//    @GetMapping("/marathons/delete/{id}")
+//    public String delete(@PathVariable(name = "id") Long id, Model model) {
+//        marathonService.deleteMarathonById(id);
+//        return "redirect:/marathons";
+//    }
 
 
-
-    private List<User> getAllStudents (List<User> users) {
+    public List<User> getAllStudents (List<User> users) {
         List<User> students = new ArrayList<>();
         for (User user : users) {
             if (user.getRole().equals(User.Role.TRAINEE)) {
@@ -50,5 +54,9 @@ public class StudentController {
     }
 
     //TODO implement needed methods
+
+
+
+
 
 }

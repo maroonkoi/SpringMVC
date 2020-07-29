@@ -2,17 +2,18 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Marathon creation page</title>
+    <title>Create new marathon</title>
 </head>
 <body>
 <header>
     <a href="/marathons">All marathons</a>
+    <span> || </span>
     <a href="/students">All students</a>
 </header>
-<h1> Create marathon</h1>
+<h1> Create new marathon</h1>
 <form th:action="@{/marathons/create}" th:object="${marathon}" method="post">
     <p>Marathon title: <input type="text" th:field="*{title}"/></p>
-    <p><input type="submit" value="Add marathon"/></p>
+    <p><input type="submit" value="CREATE NEW MARATHON"/></p>
 </form>
 </body>
 </html>

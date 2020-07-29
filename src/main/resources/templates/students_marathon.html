@@ -7,6 +7,7 @@
 <body>
 <header>
     <a href="/marathons">All marathons</a>
+    <span> || </span>
     <a href="/students">All students</a>
 </header>
 <h2>Students List</h2>
@@ -23,17 +24,11 @@
                     <form action="#" th:action="@{/students/{marathonId}/delete/{studentId}(studentId=${student.id}, marathonId=${marathon.id})}" method="get">
                         <button type="submit">Remove from marathon</button>
                     </form>
-
-
-<!--                    <form action="#" th:action="@{/marathons/delete/{id}(id=${marathon.getId()})}" method="get">-->
-<!--                        <button th:id="${marathon.getId()}" type="submit">Close</button>-->
-<!--                    </form>-->
-
                 </td>
             </tr>
         </table>
         <form action="#" th:action="@{/students/{marathon_id}/add(marathon_id=${marathon.id})}" method="get">
-            <button type="submit">Add student to marathon</button>
+            <button type="submit">ATTACH STUDENT TO MARATHON</button>
         </form>
     </div>
 </div>

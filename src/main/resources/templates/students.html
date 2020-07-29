@@ -7,12 +7,13 @@
 <body>
 <header>
     <a href="/marathons">All marathons</a>
+    <span> || </span>
     <a href="/students">All students</a>
 </header>
-<h2>Students List</h2>
+<h1>List of all Students:</h1>
 <div class="container">
     <div class="row">
-        <table border="1">
+        <table border="2">
             <tr th:each="student, index : ${students}">
                 <td th:text = "${index.count}"></td>
                 <td><a th:text="${student.firstName}" th:href="@{/student/{studentId}(studentId=${student.id})}"></a></td>

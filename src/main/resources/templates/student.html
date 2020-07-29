@@ -7,9 +7,11 @@
 <body>
 <header>
     <a href="/marathons">All marathons</a>
+    <span> || </span>
     <a href="/students">All students</a>
 </header>
 <form th:object="${student}">
+    <h1></h1>
     <label for="id">ID : </label>
     <input id="id" name="id" type="text" disabled th:field="${student.id}"><br>
     <label for="firstname">First name : </label>

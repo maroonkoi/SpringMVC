@@ -2,22 +2,19 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Edit marathon</title>
+    <title>Marathon edit</title>
 </head>
 <body>
 <header>
     <a href="/marathons">All marathons</a>
+    <span> || </span>
     <a href="/students">All students</a>
 </header>
 <h1> Edit marathon</h1>
-<!--<p th:text="${marathon}">placeholder</p>-->
-
 <form th:action="@{/marathons/edit}" th:object="${marathon}" method="post">
-
     <p>Enter new marathon title: <input type="text" th:field="*{title}"/></p>
     <input type="hidden" th:field="*{id}" th:default="${marathon.getId()}"/></p>
-    <p><input type="submit" value="Apply changes"/></p>
-
+    <p><input type="submit" value="APPLY CHANGES"/></p>
 </form>
 </body>
 </html>

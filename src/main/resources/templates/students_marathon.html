@@ -23,6 +23,12 @@
                     <form action="#" th:action="@{/students/{marathonId}/delete/{studentId}(studentId=${student.id}, marathonId=${marathon.id})}" method="get">
                         <button type="submit">Remove from marathon</button>
                     </form>
+
+
+<!--                    <form action="#" th:action="@{/marathons/delete/{id}(id=${marathon.getId()})}" method="get">-->
+<!--                        <button th:id="${marathon.getId()}" type="submit">Close</button>-->
+<!--                    </form>-->
+
                 </td>
             </tr>
         </table>

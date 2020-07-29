@@ -43,12 +43,15 @@ public class StudentController {
         return "students_marathon";
 
     }
-    @GetMapping("/students/{marathonId}/delete/{studentId}")
-    public String deleteStudent (@PathVariable("marathonId") Long marathonId, @PathVariable("studentId") Long studentId, Model model){
-        User user = userService.getUserById(studentId);
+
+    @GetMapping("/students/{marathon_id}/delete/{student_id}")
+    public String removeStudentFromMarathon(@PathVariable(name = "marathon_id") Long marathonId,
+                                            @PathVariable(name = "student_id") Long studentId,
+                                            Model model) {
         Marathon marathon = marathonService.getMarathonById(marathonId);
-        marathon.getUsers().remove(user);
-        return "redirect:/students_marathon/"+marathonId;
+        userService.removeUserFromMarathon(userService.getUserById(studentId), marathon);
+        model.addAttribute("marathon", marathon);
+        return "redirect:/students_marathon/" + marathonId.intValue();
     }
 
     @GetMapping("/student/{studentId}")

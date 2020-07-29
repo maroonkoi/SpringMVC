@@ -9,6 +9,7 @@
     <a href="/marathons">All marathons</a>
     <a href="/students">All students</a>
 </header>
+
 <!--<form th:action="@{/students/{marathon_id}/add(marathon_id=${marathon.getId()})}" th:object="${student}" method="post">-->
 <!--&lt;!&ndash;<form th:action="@{/students/{marathonId}/add(marathonId=${marathon.id})}" th:object="${student}" method="post">&ndash;&gt;-->
 <!--    <label for="firstname">First name : </label>-->
@@ -30,6 +31,7 @@
     <input type="hidden" th:field="*{role}" th:default="${student.getRole()}"/>
     <p><input type="submit" value="Add student to current Marathon"/></p>
     <p><input type="reset" value="Clear data"/></p>
+
 </form>
 <br>
 <a th:href="@{/marathons}">Back to Marathon List</a>

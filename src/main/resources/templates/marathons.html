@@ -25,7 +25,7 @@
             <tr th:each="marathon, index : ${marathons}">
                 <td th:text="${index.count}"></td>
                 <td>
-                    <a th:href="@{/students/{id}(id=${marathon.getId()})}" th:text="${marathon.title}"></a>
+                    <a th:href="@{/students_marathon/{id}(id=${marathon.getId()})}" th:text="${marathon.title}"></a>
                 </td>
                 <td>
                     <form action="#" th:action="@{/marathons/edit/{id}(id=${marathon.getId()})}" method="get">

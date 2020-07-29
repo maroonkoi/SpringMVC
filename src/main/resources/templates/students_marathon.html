@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Title</title>
 </head>
 <body>
 <header>
@@ -15,16 +15,18 @@
         <table border="1">
             <tr th:each="student, index : ${students}">
                 <td th:text = "${index.count}"></td>
-                <td><a th:text="${student.firstName}" th:href="@{/student/{studentId}(studentId=${student.id})}"></a></td>
+                <td><a href=""th:text="${student.firstName}" th:href="@{/student/{studentId}(studentId=${student.id})}"></a></td>
                 <td th:text="${student.lastName}"></td>
                 <td th:text="${student.email}"></td>
-
+                <td th:text="${marathon.title}"></td>
+                <td>
+                    <form action="#" th:action="@{/students/{marathonId}(marathonId=${marathon.id()})/delete/{studentId}(studentId=${student.id()})}" method="get">
+                        <button th:id="${marathon.id()}" type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
-
-
         </table>
     </div>
 </div>
-
 </body>
 </html>

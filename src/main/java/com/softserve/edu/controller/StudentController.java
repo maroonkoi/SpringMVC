@@ -31,6 +31,7 @@ public class StudentController {
         return "students";
     }
 
+
     @GetMapping("/students_marathon/{id}")
     public String viewAllUsersByMarathon (@PathVariable Long id, Model model){
         Marathon marathon = marathonService.getMarathonById(id);
@@ -53,10 +54,14 @@ public class StudentController {
         model.addAttribute("student", user);
         return "student";
     }
+//    @GetMapping("/marathons/delete/{id}")
+//    public String delete(@PathVariable(name = "id") Long id, Model model) {
+//        marathonService.deleteMarathonById(id);
+//        return "redirect:/marathons";
+//    }
 
 
-
-    private List<User> getAllStudents (List<User> users) {
+    public List<User> getAllStudents (List<User> users) {
         List<User> students = new ArrayList<>();
         for (User user : users) {
             if (user.getRole().equals(User.Role.TRAINEE)) {
@@ -68,5 +73,9 @@ public class StudentController {
     }
 
     //TODO implement needed methods
+
+
+
+
 
 }

@@ -10,6 +10,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 
 @SpringBootApplication
@@ -64,6 +68,8 @@ public class Application implements CommandLineRunner {
 		}
 
 
+		addUsersToMarathon();
+
 //		User user = userService.getUserById(1L);
 //		user.setPassword("newNewPassword");
 
@@ -82,15 +88,15 @@ public class Application implements CommandLineRunner {
 //
 //        List<User> users = userService.getAll();
 //        System.out.println("------USERS----\n"+users);
-//        //logger.info("User id 2 -> {}", user.get());
+//        logger.info("User id 2 -> {}", user.get());
 //
 //        Marathon marathon = new Marathon();
 //        marathon.setTitle("Second marathon");
-        //Set<User> userSet = new LinkedHashSet<>();
-        //userSet.add(users.get(0));
-        //marathon.setMentors(userSet);
+//        Set<User> userSet = new LinkedHashSet<>();
+//        userSet.add(users.get(0));
+//        marathon.setUsers(userSet);
 //		         marathonService.createOrUpdate(marathon);
-//        //marathonService.deleteMarathonById(2L);
+        //marathonService.deleteMarathonById(2L);
 		//       List<Marathon> marathons = marathonService.getAll();
 		//       marathon = marathons.get(0);
 //        //System.out.println(marathons);
@@ -122,5 +128,17 @@ public class Application implements CommandLineRunner {
 //
 //		System.out.println(progressService.allProgressByUserIdAndSprintId(26L, 1L));
 
+	}
+
+	private void addUsersToMarathon() {
+		int userNumber = userService.getAll().size();
+		int marathonNumber = marathonService.getAll().size();
+		Random randomUserId = new Random();
+		Random randomMarathonId = new Random();
+		for (int i = 1; i <= userNumber; i++) {
+			User user = userService.getUserById((long) randomUserId.nextInt(userNumber) + 1);
+			Marathon marathon = marathonService.getMarathonById((long) randomMarathonId.nextInt(marathonNumber) + 1);
+			userService.addUserToMarathon(user, marathon);
+		}
 	}
 }

@@ -24,7 +24,9 @@
         <table border="1">
             <tr th:each="marathon, index : ${marathons}">
                 <td th:text="${index.count}"></td>
-                <td th:text="${marathon.title}"></td>
+                <td>
+                    <a th:href="@{/students/{id}(id=${marathon.getId()})}" th:text="${marathon.title}"></a>
+                </td>
                 <td>
                     <form action="#" th:action="@{/marathons/edit/{id}(id=${marathon.getId()})}" method="get">
                         <button th:id="${marathon.getId()}" type="submit">Edit</button>

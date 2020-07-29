@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -21,18 +22,31 @@ public class StudentController {
     private final UserService userService;
     private final MarathonService marathonService;
 
-    @GetMapping("/users")
+    @GetMapping("/students")
     public String viewAllUsers(Model model) {
-        model.addAttribute("users", userService.getAll());
-        return "users";
+        model.addAttribute("students", getAllStudents(userService.getAll()));
+        return "students";
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/students/{id}")
     public String viewAllUsersByMarathon (@PathVariable String id, Model model){
         Marathon marathon = marathonService.getMarathonById(Long.valueOf(id));
         Set<User> users = marathon.getUsers();
-        model.addAttribute("users", users);
-        return "users";
+        model.addAttribute("students", getAllStudents((List<User>) users));
+        return "students";
+    }
+
+
+
+    private List<User> getAllStudents (List<User> users) {
+        List<User> students = new ArrayList<>();
+        for (User user : users) {
+            if (user.getRole().equals(User.Role.TRAINEE)) {
+                students.add(user);
+            }
+        }
+        return students;
+
     }
 
     //TODO implement needed methods

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<h2>Students List</h2>
+<div class="container">
+    <div class="row">
+        <table border="1">
+            <tr th:each="student, index : ${students}">
+                <td th:text = "${index.count}"></td>
+                <td th:text="${student.firstName}"></td>
+                <td th:text="${student.lastName}"></td>
+                <td th:text="${student.email}"></td>
+                <td th:each="marathon : ${student:marathons}">
+                    <p th:text="${marathon.title}"></p>
+                </td>
+                <td>
+                    <form action="/students/{marathonId}/delete/{studentId}"></form>
+                </td>
+
+            </tr>
+
+
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

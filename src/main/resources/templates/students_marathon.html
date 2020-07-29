@@ -30,6 +30,11 @@
 <!--                    </form>-->
 
                 </td>
+                <td>
+                    <form action="#" th:action="@{/students/{marathon_id}/edit/{student_id}(marathon_id=${marathon.getId()}, student_id = ${student.getId()})}" method="get">
+                        <button type="submit">Edit Student</button>
+                    </form>
+                </td>
             </tr>
         </table>
         <form action="#" th:action="@{/students/{marathonId}/add(marathonId=${marathon.id})}" method="get">

@@ -69,9 +69,22 @@ public class StudentController {
     @PostMapping("/students/{marathonId}/add")
     public String addStudentToMarathon (@ModelAttribute(name="student") User user, @PathVariable("marathonId") Long id) {
         userService.addUserToMarathon(user, marathonService.getMarathonById(id));
-        return "redirect:/students_marathon/"+id;
+        return "redirect:/students_marathon/"+id.intValue();
     }
 
+    @GetMapping("/students/{marathonId}/edit/{studentId}")
+    public String editStudent (@PathVariable("marathonId") Long marathonId, @PathVariable("studentId") Long studentId, Model model) {
+        Marathon marathon = marathonService.getMarathonById(marathonId);
+        User user = userService.getUserById(studentId);
+        model.addAttribute("student", user).addAttribute("marathon", marathon);
+        return "edit_student";
+    }
+
+    @PostMapping("/students/{marathonId}/edit/{studentId}")
+    public String editStudent (@ModelAttribute(name = "student") User user) {
+        userService.createOrUpdateUser(user);
+        return "redirect:/students";
+    }
 
     private List<User> getAllStudents (List<User> users) {
         List<User> students = new ArrayList<>();

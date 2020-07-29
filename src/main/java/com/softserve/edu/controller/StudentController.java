@@ -44,7 +44,7 @@ public class StudentController {
 
     }
     @GetMapping("/students/{marathonId}/delete/{studentId}")
-    public String deleteStudent (@PathVariable("marathonId") Long marathonId, @PathVariable("studentId") Long studentId, Model model){
+    public String deleteStudent (@PathVariable("marathonId") Long marathonId, @PathVariable("studentId") Long studentId){
         User user = userService.getUserById(studentId);
         Marathon marathon = marathonService.getMarathonById(marathonId);
         marathon.getUsers().remove(user);
@@ -64,9 +64,9 @@ public class StudentController {
     }
 
     @PostMapping("/students/{marathonId}/add")
-    public String addStudentToMarathon (@ModelAttribute(name="student") User user, @PathVariable("marathonId") Long marathonId) {
-        userService.addUserToMarathon(user, marathonService.getMarathonById(marathonId));
-        return "redirect:/students_marathon/"+marathonId;
+    public String addStudentToMarathon (@ModelAttribute(name="student") User user, @PathVariable("marathonId") Long id) {
+        userService.addUserToMarathon(user, marathonService.getMarathonById(id));
+        return "redirect:/students_marathon/"+id;
     }
 
 

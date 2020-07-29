@@ -14,9 +14,9 @@
                 <td th:text="${student.firstName}"></td>
                 <td th:text="${student.lastName}"></td>
                 <td th:text="${student.email}"></td>
-                <td th:each="marathon : ${student:marathons}">
-                    <p th:text="${marathon.title}"></p>
-                </td>
+<!--                <td th:each="marathon : ${student:marathons}">-->
+<!--                    <p th:text="${marathon.title}"></p>-->
+<!--                </td>-->
                 <td>
                     <form action="/students/{marathonId}/delete/{studentId}"></form>
                 </td>

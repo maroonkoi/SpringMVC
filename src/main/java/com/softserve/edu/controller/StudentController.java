@@ -33,7 +33,8 @@ public class StudentController {
         Marathon marathon = marathonService.getMarathonById(id);
         Set<User> users = marathon.getUsers();
         model.addAttribute("students", users);
-        return "marathonStudents";
+        model.addAttribute("marathon", marathon);
+        return "students";
     }
 //    @GetMapping("/marathons/delete/{id}")
 //    public String delete(@PathVariable(name = "id") Long id, Model model) {

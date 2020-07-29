@@ -35,9 +35,14 @@ public class StudentController {
     @GetMapping("/students_marathon/{id}")
     public String viewAllUsersByMarathon (@PathVariable Long id, Model model){
         Marathon marathon = marathonService.getMarathonById(id);
-        Set<User> users = (Set<User>) getAllStudents((List<User>) marathon.getUsers());
+        Set<User> users = marathon.getUsers();
+        for (User user : users) {
+            if (user.getRole().equals(User.Role.MENTOR)) {
+                users.remove(user);
+            }
+        }
         model.addAttribute("students", users).addAttribute("marathon", marathon);
-        return "students";
+        return "students_marathon";
 
     }
     @GetMapping("/students/{marathonId}/delete/{studentId}")
@@ -45,7 +50,7 @@ public class StudentController {
         User user = userService.getUserById(studentId);
         Marathon marathon = marathonService.getMarathonById(marathonId);
         marathon.getUsers().remove(user);
-        return "redirect:/students_marathon/"+marathonId;
+        return "redirect:/students_marathon/";
     }
 
     @GetMapping("/student/{studentId}")

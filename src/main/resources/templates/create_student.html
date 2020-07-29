@@ -2,24 +2,39 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Create new Student</title>
+    <title></title>
 </head>
 <body>
 <header>
     <a href="/marathons">All marathons</a>
-    <span> || </span>
     <a href="/students">All students</a>
 </header>
-<h1> Create new student</h1>
-<form th:action="@{/student/{marathonId}/add(marathonId = marathon.id)}" th:object="${student}" method="post">
-    <label for="firstname">First name : </label>
-    <input id="firstname" name="firstname" type="text" th:field="*{firstName}"><br>
-    <label for="lastname">Last name : </label>
-    <input id="lastname" name="lastname" type="text" th:field="*{lastName}"><br>
-    <label for="email">Email : </label>
-    <input id="email" name="email" type="text" th:field="*{email}">
-    <input type="submit" value="CREATE NEW STUDENT">
+
+<!--<form th:action="@{/students/{marathon_id}/add(marathon_id=${marathon.getId()})}" th:object="${student}" method="post">-->
+<!--&lt;!&ndash;<form th:action="@{/students/{marathonId}/add(marathonId=${marathon.id})}" th:object="${student}" method="post">&ndash;&gt;-->
+<!--    <label for="firstname">First name : </label>-->
+<!--    <input id="firstname" name="firstname" type="text" th:field="*{firstName}"><br>-->
+<!--    <label for="lastname">Last name : </label>-->
+<!--    <input id="lastname" name="lastname" type="text" th:field="*{lastName}"><br>-->
+<!--    <label for="email">Email : </label>-->
+<!--    <input id="email" name="email" type="text" th:field="*{email}">-->
+<!--    <input type="submit" value="ADD">-->
+<!--</form>-->
+
+<h2>Student creation form</h2>
+
+<form th:action="@{/students/{marathon_id}/add(marathon_id=${marathon.getId()})}" th:object="${student}" method="post">
+    <p>First name: <input type="text" th:field="*{firstName}" placeholder="first name"/></p>
+    <p>Last name: <input type="text" th:field="*{lastName}" placeholder="last name"/></p>
+    <p>Email: <input type="text" th:field="*{email}" placeholder="email"/></p>
+    <p>Password: <input type="password" th:field="*{password}" placeholder="password"/></p>
+    <input type="hidden" th:field="*{role}" th:default="${student.getRole()}"/>
+    <p><input type="submit" value="Add student to current Marathon"/></p>
+    <p><input type="reset" value="Clear data"/></p>
+
 </form>
+<br>
+<a th:href="@{/marathons}">Back to Marathon List</a>
 
 </body>
 </html>

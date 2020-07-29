@@ -15,7 +15,7 @@
         <table border="1">
             <tr th:each="student, index : ${students}">
                 <td th:text = "${index.count}"></td>
-                <!--<td><a href=""th:text="${student.firstName}" th:href="@{/student/{studentId}(studentId=${student.getId})"></a></td>-->
+                <td><a th:text="${student.firstName}" th:href="@{/student/{studentId}(studentId=${student.id})}"></a></td>
                 <td th:text="${student.lastName}"></td>
                 <td th:text="${student.email}"></td>
             </tr>

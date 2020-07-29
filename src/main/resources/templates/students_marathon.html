@@ -15,18 +15,16 @@
         <table border="1">
             <tr th:each="student, index : ${students}">
                 <td th:text = "${index.count}"></td>
-                <!--<td><a href=""th:text="${student.firstName}" th:href="@{/student/{studentId}(studentId=${student.getId})"></a></td>-->
+                <td><a href=""th:text="${student.firstName}" th:href="@{/student/{studentId}(studentId=${student.id})}"></a></td>
                 <td th:text="${student.lastName}"></td>
                 <td th:text="${student.email}"></td>
                 <td th:text="${marathon.title}"></td>
                 <td>
-                    <form action="#" th:action="@{/students/{marathonId}(marathonId=${marathon.getId()})/delete/{studentId}(studentId=${student.getId()})}" method="get">
-                        <button th:id="${marathon.getId()}" type="submit">Close</button>
+                    <form action="#" th:action="@{/students/{marathonId}(marathonId=${marathon.id()})/delete/{studentId}(studentId=${student.id()})}" method="get">
+                        <button th:id="${marathon.id()}" type="submit">Delete</button>
                     </form>
                 </td>
             </tr>
-
-
         </table>
     </div>
 </div>

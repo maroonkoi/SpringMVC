@@ -4,6 +4,7 @@ import com.softserve.edu.model.Marathon;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.MarathonService;
 import com.softserve.edu.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +17,12 @@ import java.util.Set;
 
 
 @Controller
+@AllArgsConstructor
 @Data
 public class StudentController {
 
-    private final UserService userService;
-    private final MarathonService marathonService;
+    private UserService userService;
+    private MarathonService marathonService;
 
     @GetMapping("/students")
     public String viewAllUsers(Model model) {
@@ -31,9 +33,16 @@ public class StudentController {
     @GetMapping("/students/{id}")
     public String viewAllUsersByMarathon (@PathVariable String id, Model model){
         Marathon marathon = marathonService.getMarathonById(Long.valueOf(id));
-        Set<User> users = marathon.getUsers();
-        model.addAttribute("students", getAllStudents((List<User>) users));
+        Set<User> users = (Set<User>) getAllStudents((List<User>) marathon.getUsers());
+        model.addAttribute("students", users);
         return "students";
+    }
+    @GetMapping("/students/{marathonId}/delete/{studentId}")
+    public String deleteStudent (@PathVariable Long marathonId, @PathVariable Long studentId, Model model ){
+        User user = userService.getUserById(studentId);
+        Marathon marathon = marathonService.getMarathonById(marathonId);
+        marathon.getUsers().remove(user);
+        return "redirect:/students/"+marathonId;
     }
 
 

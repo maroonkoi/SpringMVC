@@ -5,6 +5,10 @@
     <title>Users</title>
 </head>
 <body>
+<header>
+    <a href="/marathons">All marathons</a>
+    <a href="/students">All students</a>
+</header>
 <h2>Students List</h2>
 <div class="container">
     <div class="row">
@@ -14,11 +18,17 @@
                 <td th:text="${student.firstName}"></td>
                 <td th:text="${student.lastName}"></td>
                 <td th:text="${student.email}"></td>
-                <td th:each="marathon : ${student:marathons}">
+                <td th:each="marathon : ${student.marathons}">
                     <p th:text="${marathon.title}"></p>
+                    <form action="#" th:action="@{/students/{marathonId}(marathonId=${marathon.getId()}/delete/{studentId}(studentId=${student.getId()})}" method="get">
+                        <button th:id="${marathon.getId()}" type="submit">Close</button>
+                    </form>
+
                 </td>
                 <td>
-                    <form action="/students/{marathonId}/delete/{studentId}"></form>
+                    <form action="/students/{marathonId}/delete/{studentId}">
+                        <input th:id="" type="button">
+                    </form>
                 </td>
 
             </tr>

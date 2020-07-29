@@ -61,16 +61,53 @@ public class StudentController {
         return "student";
     }
 
-    @GetMapping("/students/{marathonId}/add")
-    public String addStudentToMarathon(@PathVariable Long marathonId, Model model) {
-        model.addAttribute("student", new User()).addAttribute("marathon", marathonService.getMarathonById(marathonId));
+    @GetMapping("/students/{marathon_id}/add")
+    public String addStudentToMarathon(@PathVariable(name = "marathon_id") Long marathon_id, Model model) {
+        User newUser = new User();
+        model.addAttribute("student", newUser);
+        model.addAttribute("marathon", marathonService.getMarathonById(marathon_id));
         return "create_student";
     }
 
-    @PostMapping("/students/{marathonId}/add")
-    public String addStudentToMarathon(@ModelAttribute(name = "student") User user, @PathVariable("marathonId") Long id) {
-        userService.addUserToMarathon(user, marathonService.getMarathonById(id));
-        return "redirect:/students_marathon/" + id.intValue();
+
+
+//    @GetMapping("/students/{marathonId}/add")
+//    public String addStudentToMarathon (@PathVariable Long marathonId, Model model){
+//        model.addAttribute("student", new User()).addAttribute("marathon", marathonService.getMarathonById(marathonId));
+//        return "create_student";
+//    }
+
+//    @PostMapping("/students/{marathonId}/add")
+//    public String addStudentToMarathon (@ModelAttribute(name="student") User user, @PathVariable("marathonId") Long id) {
+//        userService.createOrUpdateUser(user);
+//        marathonService.
+//        userService.addUserToMarathon(user, marathonService.getMarathonById(id));
+//
+//        return "redirect:/students_marathon/"+id;
+//    }
+
+
+    @PostMapping("/students/{marathon_id}/add")
+    public String addStudentToMarathon(@PathVariable(name = "marathon_id") Long marathon_id,
+                                       User user, Model model) {
+        user.setRole(User.Role.TRAINEE);
+        User addUser = null;
+        try {
+            addUser = userService.createOrUpdateUser(user);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        if (addUser != null) {
+            userService.addUserToMarathon(addUser, marathonService.getMarathonById(marathon_id));
+            return "redirect:/marathons";
+        } else {
+            User newUser = new User();
+            model.addAttribute("student", newUser);
+            model.addAttribute("marathon", marathonService.getMarathonById(marathon_id));
+            model.addAttribute("error", "You should fill all fields correctly!");
+            return "create_student";
+        }
+
     }
 
     @GetMapping("/students/{marathonId}/edit/{studentId}")
@@ -80,6 +117,7 @@ public class StudentController {
         model.addAttribute("student", user).addAttribute("marathon", marathon);
         return "edit_student";
     }
+
 
     @PostMapping("/students/{marathonId}/edit/{id}")
     public String editStudent(@ModelAttribute("student") User user, Model model) {
@@ -101,7 +139,12 @@ public class StudentController {
         }
     }
 
-    private List<User> getAllStudents(List<User> users) {
+
+
+
+
+    private List<User> getAllStudents (List<User> users) {
+
         List<User> students = new ArrayList<>();
         for (User user : users) {
             if (user.getRole().equals(User.Role.TRAINEE)) {
